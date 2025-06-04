@@ -1,1 +1,1 @@
-web: bash start.sh
+web: python vinted_notifications.py
