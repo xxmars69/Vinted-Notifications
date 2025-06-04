@@ -463,9 +463,5 @@ def web_ui_process(host="0.0.0.0", port=None):
     logger.info(f"Web UI pornit pe {host}:{port}")
     app.run(host=host, port=port, debug=False)
 
-# Home pentru test
-@app.route("/")
-def home():
-    return "Botul Vinted ruleaza corect 🚂"
 
 
