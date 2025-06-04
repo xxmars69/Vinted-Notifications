@@ -205,11 +205,13 @@ if __name__ == "__main__":
                               name="process_monitor")
     monitor_scheduler.start()
 
-    # 5. Create and start the Web UI process
-    # This process will provide a web interface to control the application
-    web_ui_process_instance = multiprocessing.Process(target=web_ui_process, kwargs={"host": "0.0.0.0", "port": 80})
-    web_ui_process_instance.start()
-    logger.info(f"Web UI started on port {configuration_values.WEB_UI_PORT}")
+    # 5. Run Web UI directly in the main process so Railway can detect it
+from web_ui_plugin.web_ui import web_ui_process
+web_ui_process(
+    host="0.0.0.0",
+    port=int(os.environ.get("PORT", 8080))  # Railway sets PORT automatically
+)
+
 
 
     try:
