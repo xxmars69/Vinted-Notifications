@@ -12,6 +12,10 @@ logger = get_logger(__name__)
 app = Flask(__name__,
             template_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates'),
             static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static'))
+@app.route("/")
+def home():
+    return "Botul Vinted ruleaza corect! 🚂"
+
 
 # Secret key for session management
 app.secret_key = os.urandom(24)
