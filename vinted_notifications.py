@@ -205,13 +205,12 @@ if __name__ == "__main__":
                               name="process_monitor")
     monitor_scheduler.start()
 
-    # 5. Run Web UI directly in the main process so Railway can detect it
+    # 5. Ruleaza Web UI direct (fara multiprocessing)
 from web_ui_plugin.web_ui import web_ui_process
 web_ui_process(
     host="0.0.0.0",
-    port=int(os.environ.get("PORT", 8080))  # Railway sets PORT automatically
+    port=int(os.environ.get("PORT", 8080))  # Railway seteaza PORT automat
 )
-
 
 
     try:
@@ -219,7 +218,7 @@ web_ui_process(
         scrape_process.join()
         item_extractor_process.join()
         dispatcher_process.join()
-        web_ui_process_instance.join()
+    
 
         # plugins
         if telegram_process:
@@ -238,7 +237,6 @@ web_ui_process(
         item_extractor_process.terminate()
         dispatcher_process.terminate()
         # Terminate web UI process
-        web_ui_process_instance.terminate()
 
         # Plugins
 
@@ -255,7 +253,7 @@ web_ui_process(
         scrape_process.join()
         item_extractor_process.join()
         dispatcher_process.join()
-        web_ui_process_instance.join()
+    
 
         # Plugins
         if telegram_process:
