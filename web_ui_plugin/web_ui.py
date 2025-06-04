@@ -449,11 +449,12 @@ def api_logs():
     })
 
 
-def web_ui_process():
-    logger.info("Web UI process started")
+def web_ui_process(host="0.0.0.0", port=80):
+    logger.info(f"Web UI process started on {host}:{port}")
     try:
-        app.run(host='0.0.0.0', port=configuration_values.WEB_UI_PORT, debug=False)
+        app.run(host=host, port=port, debug=False)
     except (KeyboardInterrupt, SystemExit):
         logger.info("Web UI process stopped")
     except Exception as e:
         logger.error(f"Error in web UI process: {e}", exc_info=True)
+
