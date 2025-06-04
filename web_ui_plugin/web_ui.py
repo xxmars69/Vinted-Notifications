@@ -453,12 +453,18 @@ def api_logs():
     })
 
 
-def web_ui_process(host="0.0.0.0", port=80):
-    logger.info(f"Web UI process started on {host}:{port}")
-    try:
-        app.run(host=host, port=port, debug=False)
-    except (KeyboardInterrupt, SystemExit):
-        logger.info("Web UI process stopped")
-    except Exception as e:
-        logger.error(f"Error in web UI process: {e}", exc_info=True)
+import os
+...
+def web_ui_process(host="0.0.0.0", port=None):
+    # Railway pune numărul real în variabila PORT
+    if port is None:
+        port = int(os.environ.get("PORT", 8080))
+    logger.info(f"Web UI pornit pe {host}:{port}")
+    app.run(host=host, port=port, debug=False)
+
+# Home pentru test
+@app.route("/")
+def home():
+    return "Botul Vinted ruleaza corect 🚂"
+
 
